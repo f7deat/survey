@@ -1,15 +1,13 @@
-@model IEnumerable<Survey.Entities.Ticket>
-@{
-    ViewData["Title"] = "Home Page";
-}
+@model IEnumerable<Survey.Entities.User>
 
-<a href="/ticket/create" class="btn btn-primary">Tạo khảo sát</a>
+<a href="/ticket/create" class="btn btn-primary">Tạo người dùng</a>
 
 <table class="table table-bordered mt-3">
     <thead class="thead-light">
         <tr>
             <th>#</th>
             <th>Tên</th>
+            <th>Email</th>
             <th>Tác vụ</th>
         </tr>
     </thead>
@@ -19,6 +17,7 @@
             <tr>
                 <td>@item.Id</td>
                 <td>@item.Name</td>
+                <td>@item.Email</td>
                 <td>
                     <button class="btn btn-info btn-sm"><i class="fas fa-pen"></i></button>
                     <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>

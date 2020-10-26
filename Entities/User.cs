@@ -7,7 +7,7 @@ namespace Survey.Entities
     public class User {
         public int Id { get; set; }
         [StringLength(200)]
-        public int Name { get; set; }
+        public string Name { get; set; }
         public DateTime DateOfBirth { get; set; }
         [StringLength(20)]
         public string PhoneNumber { get; set; }

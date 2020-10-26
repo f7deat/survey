@@ -12,8 +12,9 @@ namespace Survey.Controllers
 {
     public class TicketController : Controller
     {
-        public List<Ticket> Tickets {get; set;}
-        public IActionResult Index() {
+        public List<Ticket> Tickets = new List<Ticket>();
+        public TicketController()
+        {
             Tickets.Add(new Ticket{
                 Id = 1,
                 CreateDate = DateTime.Now,
@@ -24,6 +25,8 @@ namespace Survey.Controllers
                 CreateDate = DateTime.Now,
                 Name = "Đánh giá kết quả cuối quý"
             });
+        }
+        public IActionResult Index() {
             return View(Tickets);
         }
         public IActionResult Create() {

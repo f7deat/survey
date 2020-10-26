@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace Survey.Entities
 {
@@ -11,5 +12,7 @@ namespace Survey.Entities
         public string Description { get; set; }
         public DateTime CreateDate { get; set; }
         public int Status { get; set; }
+
+        public virtual ICollection<Form> Forms { get; set; }
     }
 }
