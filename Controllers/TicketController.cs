@@ -6,13 +6,25 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Survey.Models;
+using Survey.Entities;
 
 namespace Survey.Controllers
 {
     public class TicketController : Controller
     {
+        public List<Ticket> Tickets {get; set;}
         public IActionResult Index() {
-            return View();
+            Tickets.Add(new Ticket{
+                Id = 1,
+                CreateDate = DateTime.Now,
+                Name = "Đánh giá kết quả cuối năm"
+            });
+            Tickets.Add(new Ticket{
+                Id = 2,
+                CreateDate = DateTime.Now,
+                Name = "Đánh giá kết quả cuối quý"
+            });
+            return View(Tickets);
         }
         public IActionResult Create() {
             return View();
