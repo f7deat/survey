@@ -1,0 +1,14 @@
+@model Survey.Entities.Ticket
+
+@{
+    ViewData["Title"] = "Tạo khảo sát";
+}
+
+<form asp-action="create" method="POST">
+    <label>Tên khảo sát</label>
+    <input type="text" class="form-control mb-3" asp-for="Name" required/>
+    <label>Mô tả</label>
+    <textarea class="form-control mb-3" asp-for="Description"></textarea>
+    <button class="btn btn-primary" type="submit">Tạo khảo sát</button>
+    <a href="/" class="btn btn-secondary">Hủy bỏ</a>
+</form>
