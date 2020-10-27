@@ -1,15 +1,17 @@
 @model IEnumerable<Survey.Entities.Ticket>
+@using Survey.Enums
 @{
     ViewData["Title"] = "Home Page";
 }
 
-<a href="/ticket/create" class="btn btn-primary">Tạo khảo sát</a>
+<a href="/ticket/create" class="btn btn-primary"><i class="fas fa-plus"></i> Tạo khảo sát</a>
 
 <table class="table table-bordered mt-3">
     <thead class="thead-light">
         <tr>
             <th>#</th>
             <th>Tên</th>
+            <th>Trạng thái</th>
             <th>Tác vụ</th>
         </tr>
     </thead>
@@ -20,8 +22,18 @@
                 <td>@item.Id</td>
                 <td>@item.Name</td>
                 <td>
-                    <button class="btn btn-info btn-sm"><i class="fas fa-pen"></i></button>
-                    <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                    @if(item.Status == ETicketStatus.Draft) {
+                        <span class="badge badge-secondary">Nháp</span>
+                    } else if(item.Status == ETicketStatus.Completed) {
+                        <span class="badge badge-success">Đã khảo sát</span>
+                    } else if(item.Status == ETicketStatus.Publish) {
+                        <span class="badge badge-success">Sẵn sàng khảo sát</span>
+                    }
+                </td>
+                <td>
+                    <a href="/ticket/details/@item.Id" class="btn btn-primary btn-sm"><i class="fas fa-folder"></i></a>
+                    <a class="btn btn-info btn-sm" href="/ticket/edit/@item.Id"><i class="fas fa-pen"></i></a>
+                    <a class="btn btn-danger btn-sm" href="/ticket/delete/@item.Id"><i class="fas fa-trash"></i></a>
                 </td>
             </tr>
         }

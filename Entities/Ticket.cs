@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using Survey.Enums;
 
 namespace Survey.Entities
 {
@@ -11,8 +12,8 @@ namespace Survey.Entities
         [StringLength(500)]
         public string Description { get; set; }
         public DateTime CreateDate { get; set; }
-        public int Status { get; set; }
+        public ETicketStatus Status { get; set; }
 
-        public virtual ICollection<Form> Forms { get; set; }
+        public virtual ICollection<Quiz> Quizzes { get; set; }
     }
 }

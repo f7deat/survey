@@ -1,0 +1,14 @@
+@{
+    ViewData["Title"] = "Đăng nhập";
+}
+
+<div class="text-danger mb-3">@ViewBag.Error</div>
+
+<form action="login" method="post">
+    <label>ID</label>
+    <input type="text" class="form-control mb-3" required name="id"/>
+    <label>Mật khẩu</label>
+    <input type="password" class="form-control mb-3" required name="password"/>
+    <button class="btn btn-primary" type="submit">Đăng nhập</button>
+    <a class="btn btn-secondary"href="/">Hủy</a>
+</form>

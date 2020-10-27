@@ -14,5 +14,9 @@ namespace Survey.Controllers
         public IActionResult Index() {
             return View();
         }
+
+        public IActionResult Create(int id) {
+            return View();
+        }
     }
 }

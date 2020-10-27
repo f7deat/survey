@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Survey.Entities
 {
-    public class Form
+    public class Quiz
     {
         public int Id { get; set; }
         [StringLength(1000)]

@@ -1,14 +1,22 @@
 @model Survey.Entities.Ticket
+@using Survey.Enums
 
 @{
     ViewData["Title"] = "Tạo khảo sát";
 }
 
-<form asp-action="create" method="POST">
+<form asp-action="edit" method="POST">
+    <input type="hidden" asp-for="Id" />
     <label>Tên khảo sát</label>
     <input type="text" class="form-control mb-3" asp-for="Name" required/>
     <label>Mô tả</label>
     <textarea class="form-control mb-3" asp-for="Description"></textarea>
-    <button class="btn btn-primary" type="submit">Tạo khảo sát</button>
-    <a href="/" class="btn btn-secondary">Hủy bỏ</a>
+    <label>Trạng thái</label>
+    <select class="form-control mb-3" asp-for="Status">
+        <option value="@ETicketStatus.Draft">Nháp</option>
+        <option value="@ETicketStatus.Publish">Sẵn sàng khảo sát</option>
+        <option value="@ETicketStatus.Completed">Đã khảo sát</option>
+    </select>
+    <button class="btn btn-primary" type="submit">Lưu lại</button>
+    <a href="/ticket/details/@Model.Id" class="btn btn-secondary">Hủy bỏ</a>
 </form>
