@@ -1,0 +1,8 @@
+@model Survey.Entities.Quiz
+
+<form asp-action="create" method="post">
+    <input type="hidden" name="TicketId" value="@ViewBag.TicketId" />
+    <label>Nội dung</label>
+    <textarea class="form-control mb-3" name="title"></textarea>
+    <button type="submit" class="btn btn-primary">Tạo</button>
+</form>

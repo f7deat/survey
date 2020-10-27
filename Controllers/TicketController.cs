@@ -47,7 +47,8 @@ namespace Survey.Controllers
         public IActionResult Details(int id) {
             var ticket = Tickets.FirstOrDefault(x => x.Id == id);
             ViewData["Title"] = ticket.Name;
-            return View(ticket);
+            ViewBag.Id = id;
+            return View(DataExample.Quizzes.Where(x => x.TicketId == id).ToList());
         }
         public IActionResult Delete(int id) {
             var ticket = Tickets.FirstOrDefault(x => x.Id == id);

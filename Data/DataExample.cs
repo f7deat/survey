@@ -21,5 +21,14 @@ namespace Survey.Data
                 Status = ETicketStatus.Publish
             }
         };
+
+        public static List<Quiz> Quizzes = new List<Quiz>() {
+            new Quiz {
+                Id = 1, Title = "Bạn có hài lòng về chương trình giảng dạy hiện tại", TicketId = 1
+            },
+            new Quiz {
+                Id = 2, Title = "Bạn có hài lòng về cơ sở vật chất hiện tại", TicketId = 1
+            }
+        };
     }
 }

@@ -9,6 +9,7 @@ using Survey.Models;
 using Survey.Entities;
 using Microsoft.AspNetCore.Http;
 using Survey.Extensions;
+using Survey.Data;
 
 namespace Survey.Controllers
 {
@@ -19,12 +20,6 @@ namespace Survey.Controllers
 
         public HomeController(ILogger<HomeController> logger)
         {
-            Quizzes.Add(new Quiz {
-                Id = 1, Title = "Bạn có hài lòng về chương trình giảng dạy hiện tại", TicketId = 1, ChoiceA = "Rất hài lòng", ChoiceB = "Hài lòng", ChoiceC = "Không hài lòng", ChoiceD = "Rất tệ"
-            });
-            Quizzes.Add(new Quiz {
-                Id = 2, Title = "Bạn có hài lòng về cơ sở vật chất hiện tại", TicketId = 1, ChoiceA = "Rất hài lòng", ChoiceB = "Hài lòng", ChoiceC = "Không hài lòng", ChoiceD = "Rất tệ"
-            });
             _logger = logger;
         }
 
@@ -38,7 +33,9 @@ namespace Survey.Controllers
             {
                 ViewBag.User = user.Name;
             }
-            return View(Quizzes);
+            var votes = new Vote();
+            votes.Quizzes = DataExample.Quizzes;
+            return View(votes);
         }
 
         public IActionResult Privacy()
