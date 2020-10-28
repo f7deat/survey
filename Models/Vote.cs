@@ -8,11 +8,11 @@ namespace Survey.Models
     public class Vote
     {
         public List<IGrouping<QuizType, Quiz>> Quizzes { get; set; }
-        public int[] Level1 { get; set; }
-        public int[] Level2 { get; set; }
-        public int[] Level3 { get; set; }
-        public int[] Level4 { get; set; }
-        public int[] Level5 { get; set; }
+        public int[] LevelA { get; set; }
+        public int[] LevelB { get; set; }
+        public int[] LevelC { get; set; }
+        public int[] LevelD { get; set; }
+        public int[] LevelE { get; set; }
         public int TicketId { get; set; }
         public string Name { get; set; }
     }

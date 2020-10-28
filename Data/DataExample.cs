@@ -30,7 +30,10 @@ namespace Survey.Data
                 Id = 2, QuizType = QuizType.Content1, Title = "Giảng viên đã thông tin đầy đủ về kế hoạch giảng dạy, huấn luyện và tiêu chí đánh giá kết quả học tập.", TicketId = 1
             },
             new Quiz {
-                Id = 2, QuizType = QuizType.Content2, Title = "Giảng viên đã thực hiện đúng kế hoạch, nội dung bài giảng, huấn luyện đã được thông qua.", TicketId = 1
+                Id = 3, QuizType = QuizType.Content1, Title = "Giảng viên đã chuẩn bị tốt các điều kiện để thực hành giảng bài, huấn luyện (giáo án, địa điểm, vật chất, trang thiết bị dạy học...)", TicketId = 1
+            },
+            new Quiz {
+                Id = 4, QuizType = QuizType.Content2, Title = "Giảng viên đã thực hiện đúng kế hoạch, nội dung bài giảng, huấn luyện đã được thông qua.", TicketId = 1
             }
         };
 

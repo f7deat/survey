@@ -1,4 +1,31 @@
 @model List<Survey.Entities.Statistical>
+@using Survey.Enums;
+
+<h4>Đánh giá chung</h4>
+<table class="table table-bordered">
+    <thead class="thead-light">
+        <tr>
+            <th>TT</th>
+            <th>Nội dung</th>
+            <th>Điểm TB</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>Công tác chuẩn bị giảng dạy, huấn luyện.</td>
+            <td>
+                @{
+                    int sum = 0;
+                    sum = Model.Where(x => x.QuizType == QuizType.Content1).Sum(x => x.Vote1);
+                    sum += 2 * Model.Where(x => x.QuizType == QuizType.Content1).Sum(x => x.Vote2);
+                    sum += 3 * Model.Where(x => x.QuizType == QuizType.Content1).Sum(x => x.Vote3);
+                }
+                @(sum / (3 * Model.Count()))
+            </td>
+        </tr>
+    </tbody>
+</table>
 
 <table class="table table-bordered">
     <thead class="thead-light">
