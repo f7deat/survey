@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using Survey.Enums;
 
 namespace Survey.Entities
 {
@@ -9,6 +10,7 @@ namespace Survey.Entities
         [StringLength(2000)]
         public string Title { get; set; }
         public int TicketId { get; set; }
+        public QuizType QuizType { get; set; }
 
         public virtual Ticket Ticket { get; set; }
     }

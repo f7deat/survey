@@ -1,8 +1,17 @@
 @model Survey.Entities.Quiz
+@using Survey.Enums;
 
 <form asp-action="create" method="post">
     <input type="hidden" name="TicketId" value="@ViewBag.TicketId" />
     <label>Nội dung</label>
     <textarea class="form-control mb-3" name="title"></textarea>
+    <label>Loại</label>
+    <select asp-for="QuizType" class="form-control mb-3">
+        <option value="@QuizType.Content1">Công tác chuẩn bị giảng dạy, huấn luyện</option>
+        <option value="@QuizType.Content2">Nội dung giảng dạy, huấn luyện.</option>
+        <option value="@QuizType.Content3">Phương pháp giảng dạy, huấn luyện</option>
+        <option value="@QuizType.Content4">Tổ chức giảng dạy, huấn luyện.</option>
+        <option value="@QuizType.Content5">Thái độ, trách nhiệm của giảng viên.</option>
+    </select>
     <button type="submit" class="btn btn-primary">Tạo</button>
 </form>

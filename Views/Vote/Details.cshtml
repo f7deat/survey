@@ -1,0 +1,27 @@
+@model List<Survey.Entities.Statistical>
+
+<table class="table table-bordered">
+    <thead class="thead-light">
+        <tr>
+            <th>Họ tên</th>
+            <th>Số lựa chọn 1</th>
+            <th>Số lựa chọn 2</th>
+            <th>Số lựa chọn 3</th>
+            <th>Số lựa chọn 4</th>
+            <th>Tổng số lượt vote</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Vote0</td>
+                <td>@item.Vote1</td>
+                <td>@item.Vote2</td>
+                <td>@item.Vote3</td>
+                <td>@item.TotalQuiz</td>
+            </tr>
+        }
+    </tbody>
+</table>

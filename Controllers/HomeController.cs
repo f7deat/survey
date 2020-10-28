@@ -28,13 +28,20 @@ namespace Survey.Controllers
             UserSession user = HttpContext.Session.Get<UserSession>("Survey");
             if(user == null) {
                 ViewBag.User = "Khách";
+                ViewBag.Disabled = "disabled";
             }
             else
             {
                 ViewBag.User = user.Name;
             }
+            var ticket = DataExample.Tickets.FirstOrDefault(x => x.Status == Enums.ETicketStatus.Publish);
+            if (ticket == null) {
+                return View();
+            }
             var votes = new Vote();
-            votes.Quizzes = DataExample.Quizzes;
+            votes.Quizzes = DataExample.Quizzes.GroupBy(x => x.QuizType).ToList();
+            votes.TicketId = ticket.Id;
+            votes.Name = ticket.Name;
             return View(votes);
         }
 

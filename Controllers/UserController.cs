@@ -10,35 +10,25 @@ using Survey.Entities;
 using Survey.Enums;
 using Microsoft.AspNetCore.Http;
 using Survey.Extensions;
+using Survey.Data;
 
 namespace Survey.Controllers
 {
     public class UserController : Controller
     {
         private List<User> Users = new List<User>();
-        public UserController()
-        {
-            Users.Add(new User {
-                Id = "12AB001", Name = "TanDC", Email = "tandc@defzone.net", Gender = true, DateOfBirth = DateTime.Now, UserType = UserType.Lecturer, Password = "123"
-            });
-            Users.Add(new User {
-                Id = "12AB002", Name = "LinhLP", Email = "linhlp@defzone.net", Gender = true, DateOfBirth = DateTime.Now, UserType = UserType.Trainees, Password = "123"
-            });
-            Users.Add(new User {
-                Id = "12AB003", Name = "HungNV", Email = "hungnv@defzone.net", Gender = true, DateOfBirth = DateTime.Now, UserType = UserType.Trainees, Password = "123"
-            });
-        }
         public IActionResult Index(UserType id)
         {
             if (id == UserType.Trainees)
             {
                 ViewData["Title"] = "Học viên";
+                ViewBag.Disabled = "disabled";
             }
             else
             {
                 ViewData["Title"] = "Giảng viên";
             }
-            return View(Users.Where(x => x.UserType == id));
+            return View(DataExample.Users.Where(x => x.UserType == id).ToList());
         }
 
         public IActionResult Login() {
@@ -47,7 +37,7 @@ namespace Survey.Controllers
 
         [HttpPost]
         public IActionResult Login(string id, string password) {
-            var user = Users.FirstOrDefault(x => x.Id == id.ToUpper() && x.Password == password);
+            var user = DataExample.Users.FirstOrDefault(x => x.Id == id.ToUpper() && x.Password == password);
             if (user != null)
             {
                 var userSession = new UserSession {
@@ -69,6 +59,19 @@ namespace Survey.Controllers
         }
         [HttpPost]
         public IActionResult Create(User user) {
+            DataExample.Users.Add(user);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Edit(string id) {
+            return View(DataExample.Users.FirstOrDefault(x => x.Id == id));
+        }
+
+        [HttpPost]
+        public IActionResult Edit(User user) {
+            var item = DataExample.Users.FirstOrDefault(x => x.Id == user.Id);
+            item.Name = user.Name;
+            item.Department = user.Department;
             return RedirectToAction(nameof(Index));
         }
 
