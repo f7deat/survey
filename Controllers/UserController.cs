@@ -19,6 +19,13 @@ namespace Survey.Controllers
         private List<User> Users = new List<User>();
         public IActionResult Index(UserType id)
         {
+            var user = HttpContext.Session.Get<UserSession>("Survey");
+            if(user == null) {
+                return RedirectToAction("login", "user");
+            }
+            if(user.UserType != UserType.Admin) {
+                return RedirectToAction("authorized", "user");
+            }
             if (id == UserType.Trainees)
             {
                 ViewData["Title"] = "Học viên";
@@ -78,6 +85,10 @@ namespace Survey.Controllers
         public IActionResult Logout() {
             HttpContext.Session.Remove("Survey");
             return RedirectToAction(nameof(Index), "Home");
+        }
+
+        public IActionResult Authorized() {
+            return View();
         }
     }
 }

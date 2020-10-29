@@ -41,7 +41,7 @@ namespace Survey.Data
 
         public static List<User> Users = new List<User>() {
             new User {
-                Id = "12AB001", Name = "TanDC", Email = "tandc@defzone.net", Gender = true, DateOfBirth = DateTime.Now, UserType = UserType.Lecturer, Password = "123"
+                Id = "12AB001", Name = "TanDC", Email = "tandc@defzone.net", Gender = true, DateOfBirth = DateTime.Now, UserType = UserType.Admin, Password = "123"
             },
             new User {
                 Id = "12AB002", Name = "LinhLP", Email = "linhlp@defzone.net", Gender = true, DateOfBirth = DateTime.Now, UserType = UserType.Trainees, Password = "123"

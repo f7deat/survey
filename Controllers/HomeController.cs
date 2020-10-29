@@ -39,7 +39,7 @@ namespace Survey.Controllers
                 return View();
             }
             var votes = new Vote();
-            votes.Quizzes = DataExample.Quizzes.GroupBy(x => x.QuizType).ToList();
+            votes.Quizzes = DataExample.Quizzes.Where(x => x.TicketId == ticket.Id).GroupBy(x => x.QuizType).ToList();
             votes.TicketId = ticket.Id;
             votes.Name = ticket.Name;
             return View(votes);

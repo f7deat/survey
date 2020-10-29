@@ -9,6 +9,7 @@ using Survey.Models;
 using Survey.Entities;
 using Survey.Enums;
 using Survey.Data;
+using Survey.Extensions;
 
 namespace Survey.Controllers
 {
@@ -20,6 +21,13 @@ namespace Survey.Controllers
             Tickets = DataExample.Tickets;
         }
         public IActionResult Index() {
+            var user = HttpContext.Session.Get<UserSession>("Survey");
+            if(user == null) {
+                return RedirectToAction("login", "user");
+            }
+            if(user.UserType != UserType.Admin) {
+                return RedirectToAction("authorized", "user");
+            }
             return View(Tickets.Where(x => x.Status != ETicketStatus.Delete).OrderByDescending(x => x.CreateDate));
         }
         public IActionResult Create() {

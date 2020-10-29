@@ -17,6 +17,13 @@ namespace Survey.Controllers
     public class VoteController : Controller
     {
         public IActionResult Index() {
+            var user = HttpContext.Session.Get<UserSession>("Survey");
+            if(user == null) {
+                return RedirectToAction("login", "user");
+            }
+            if(user.UserType != UserType.Admin) {
+                return RedirectToAction("authorized", "user");
+            }
             ViewData["Title"] = "Kết quả đánh giá";
             return View(DataExample.Tickets);
         }

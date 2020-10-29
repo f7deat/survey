@@ -1,13 +1,17 @@
 @model List<Survey.Entities.Statistical>
 @using Survey.Enums;
 
-<h4>Đánh giá chung</h4>
+<div class="d-flex mb-3">
+    <h4 class="flex-grow-1">Đánh giá chung</h4>
+    <button class="btn btn-primary" type="button" onclick="toggleDetails()">Xem chi tiết</button>
+</div>
 <table class="table table-bordered">
     <thead class="thead-light">
         <tr>
             <th>TT</th>
             <th>Nội dung</th>
             <th>Điểm TB</th>
+            <th>Xếp loại</th>
         </tr>
     </thead>
     <tbody>
@@ -16,18 +20,130 @@
             <td>Công tác chuẩn bị giảng dạy, huấn luyện.</td>
             <td>
                 @{
-                    int sum = 0;
+                    float sum = 0;
                     sum = Model.Where(x => x.QuizType == QuizType.Content1).Sum(x => x.Vote1);
                     sum += 2 * Model.Where(x => x.QuizType == QuizType.Content1).Sum(x => x.Vote2);
                     sum += 3 * Model.Where(x => x.QuizType == QuizType.Content1).Sum(x => x.Vote3);
+                    double avg = Math.Round(sum / ((Model.FirstOrDefault(x => x.QuizType == QuizType.Content1)?.TotalQuiz ?? 0) * Model.Select(x=>x.UserId).Distinct().Count()), 2);
                 }
-                @(sum / (3 * Model.Count()))
+                @avg
+            </td>
+            <td>
+                @if (avg > 2.5) {
+                    <b>T</b>
+                } else if (avg > 2 && avg <= 2.5) {
+                    <b>K</b>
+                } else if (avg > 1 && avg <= 1.99) {
+                    <b>TB</b>
+                } else {
+                    <b>Y</b>
+                }
+            </td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Nội dung giảng dạy, huấn luyện.</td>
+            <td>
+                @{
+                    float sum2 = 0;
+                    sum2 = Model.Where(x => x.QuizType == QuizType.Content2).Sum(x => x.Vote1);
+                    sum2 += 2 * Model.Where(x => x.QuizType == QuizType.Content2).Sum(x => x.Vote2);
+                    sum2 += 3 * Model.Where(x => x.QuizType == QuizType.Content2).Sum(x => x.Vote3);
+                    double avg2 = Math.Round(sum2 / ((Model.FirstOrDefault(x => x.QuizType == QuizType.Content2)?.TotalQuiz ?? 0) * Model.Select(x=>x.UserId).Distinct().Count()), 2);
+                }
+                @avg2
+            </td>
+            <td>
+                @if (avg2 > 2.5) {
+                    <b>T</b>
+                } else if (avg2 > 2 && avg2 <= 2.5) {
+                    <b>K</b>
+                } else if (avg2 > 1 && avg2 <= 1.99) {
+                    <b>TB</b>
+                } else {
+                    <b>Y</b>
+                }
+            </td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Phương pháp giảng dạy, huấn luyện.</td>
+            <td>
+                @{
+                    float sum3 = 0;
+                    sum3 = Model.Where(x => x.QuizType == QuizType.Content3).Sum(x => x.Vote1);
+                    sum3 += 2 * Model.Where(x => x.QuizType == QuizType.Content3).Sum(x => x.Vote2);
+                    sum3 += 3 * Model.Where(x => x.QuizType == QuizType.Content3).Sum(x => x.Vote3);
+                    double avg3 = Math.Round(sum3 / ((Model.FirstOrDefault(x => x.QuizType == QuizType.Content3)?.TotalQuiz ?? 0) * Model.Select(x=>x.UserId).Distinct().Count()), 2);
+                }
+                @avg3
+            </td>
+            <td>
+                @if (avg3 > 2.5) {
+                    <b>T</b>
+                } else if (avg3 > 2 && avg3 <= 2.5) {
+                    <b>K</b>
+                } else if (avg3 > 1 && avg3 <= 1.99) {
+                    <b>TB</b>
+                } else {
+                    <b>Y</b>
+                }
+            </td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Tổ chức giảng dạy, huấn luyện.</td>
+            <td>
+                @{
+                    float sum4 = 0;
+                    sum4 = Model.Where(x => x.QuizType == QuizType.Content4).Sum(x => x.Vote1);
+                    sum4 += 2 * Model.Where(x => x.QuizType == QuizType.Content4).Sum(x => x.Vote2);
+                    sum4 += 3 * Model.Where(x => x.QuizType == QuizType.Content4).Sum(x => x.Vote3);
+                    double avg4 = Math.Round(sum4 / ((Model.FirstOrDefault(x => x.QuizType == QuizType.Content4)?.TotalQuiz ?? 0) * Model.Select(x=>x.UserId).Distinct().Count()), 2);
+                }
+                @avg4
+            </td>
+            <td>
+                @if (avg4 > 2.5) {
+                    <b>T</b>
+                } else if (avg4 > 2 && avg4 <= 2.5) {
+                    <b>K</b>
+                } else if (avg4 > 1 && avg4 <= 1.99) {
+                    <b>TB</b>
+                } else {
+                    <b>Y</b>
+                }
+            </td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Thái độ, trách nhiệm của giảng viên.</td>
+            <td>
+                @{
+                    float sum5 = 0;
+                    sum5 = Model.Where(x => x.QuizType == QuizType.Content5).Sum(x => x.Vote1);
+                    sum5 += 2 * Model.Where(x => x.QuizType == QuizType.Content5).Sum(x => x.Vote2);
+                    sum5 += 3 * Model.Where(x => x.QuizType == QuizType.Content5).Sum(x => x.Vote3);
+                    double avg5 = Math.Round(sum5 / ((Model.FirstOrDefault(x => x.QuizType == QuizType.Content5)?.TotalQuiz ?? 0) * Model.Select(x=>x.UserId).Distinct().Count()), 2);
+                }
+                @avg5
+            </td>
+            <td>
+                @if (avg5 > 2.5) {
+                    <b>T</b>
+                } else if (avg5 > 2 && avg5 <= 2.5) {
+                    <b>K</b>
+                } else if (avg5 > 1 && avg5 <= 1.99) {
+                    <b>TB</b>
+                } else {
+                    <b>Y</b>
+                }
             </td>
         </tr>
     </tbody>
 </table>
 
-<table class="table table-bordered">
+<table class="table table-bordered d-none" id="details">
     <thead class="thead-light">
         <tr>
             <th>Họ tên</th>
@@ -52,3 +168,11 @@
         }
     </tbody>
 </table>
+
+@section scripts {
+    <script>
+        function toggleDetails() {
+            $('#details').toggleClass('d-none')
+        }
+    </script>
+}
