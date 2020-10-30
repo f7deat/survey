@@ -14,6 +14,6 @@ namespace Survey.Models
         public int[] LevelD { get; set; }
         public int[] LevelE { get; set; }
         public int TicketId { get; set; }
-        public string Name { get; set; }
+        public string UserId { get; set; }
     }
 }

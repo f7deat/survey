@@ -65,5 +65,14 @@ namespace Survey.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
+
+        public IActionResult Take(int id, string userId) {
+            var ticket = Tickets.FirstOrDefault(x => x.Id == id);
+            var vote = new Vote();
+            vote.Quizzes = DataExample.Quizzes.GroupBy(x => x.QuizType).ToList();
+            vote.TicketId = id;
+            vote.UserId = userId;
+            return View(vote);
+        }
     }
 }

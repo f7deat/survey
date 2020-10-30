@@ -1,0 +1,208 @@
+@model Survey.Models.Vote
+@using Survey.Enums;
+
+@{
+    ViewData["Title"] = "Khảo sát";
+    var j = 0;
+}
+<link rel="stylesheet" href="/lib/icheck/skins/flat/red.css">
+
+@if(Model == null) {
+    <div class="alert alert-info font-weight-bold">
+        <i class="fas fa-exclaiming"></i> Hiện tại chưa có khảo sát nào!
+    </div>
+}
+else 
+{
+    <h3 class="font-weight-bold text-uppercase text-center mb-4">phiếu lấy ý kiến phản hồi người học</h3>
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <td class="text-center">(1) Không đồng ý</td>
+                <td class="text-center">(2) Không có ý kiến gì</td>
+                <td class="text-center">(3) Đồng ý một phần</td>
+                <td class="text-center">(4) Hoàn toàn đồng ý</td>
+            </tr>
+        </tbody>
+    </table>
+<form action="/vote/create" method="POST">
+<input type="hidden" name="TicketId" value="@Model.TicketId" />
+        @foreach (var item in Model.Quizzes)
+        {
+            int i = 0;
+            if(item.Key == QuizType.Content1) {
+                <table class="table table-bordered mt-4 mb-0">
+            <thead class="thead-light">
+                <tr>
+                    <th colspan="2">Nội dung</th>
+                    <th colspan="4">Mức độ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-center font-weight-bold" rowspan="100" style="width: 8%">Công tác chuẩn bị giảng dạy, huấn luyện</td>
+                </tr>
+            @foreach (var quiz in item)
+            {
+                i++;
+                j++;
+                <tr>
+                    <td class="font-weight-bold mb-2">@j. @(quiz.Title)</td>
+                    <td class="mb-2 text-center">
+                            <input type="radio" name="LevelA[@(i - 1)]" value="0" required/>
+                    </td>
+                    <td class="mb-2 text-center">
+                            <input type="radio" name="LevelA[@(i - 1)]" value="1" required/>
+                    </td>
+                    <td class="mb-2 text-center">
+                            <input type="radio" name="LevelA[@(i - 1)]" value="2" required/>
+                    </td>
+                    <td class="mb-2 text-center">
+                            <input type="radio" name="LevelA[@(i - 1)]" value="3" required/>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+            }
+            else if(item.Key == QuizType.Content2) 
+            {
+                <table class="table table-bordered mb-0">
+            <tbody>
+                <tr>
+                    <td class="text-center font-weight-bold" rowspan="100" style="width: 8%">Nội dung giảng dạy, huấn luyện.</td>
+                </tr>
+            @foreach (var quiz in item)
+            {
+                i++;
+                j++;
+                <tr>
+                    <td class="font-weight-bold mb-2">@j. @(quiz.Title)</td>
+                    <td class="mb-2 text-center">
+                            <input type="radio" name="LevelB[@(i - 1)]" value="0" required/>
+                    </td>
+                    <td class="mb-2 text-center">
+                            <input type="radio" name="LevelB[@(i - 1)]" value="1" required/>
+                    </td>
+                    <td class="mb-2 text-center">
+                            <input type="radio" name="LevelB[@(i - 1)]" value="2" required/>
+                    </td>
+                    <td class="mb-2 text-center">
+                            <input type="radio" name="LevelB[@(i - 1)]" value="3" required/>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+            }
+            else if(item.Key == QuizType.Content3) 
+            {
+                <table class="table table-bordered mb-0">
+            <tbody>
+                <tr>
+                    <td class="text-center font-weight-bold" rowspan="100" style="width: 8%">Phương pháp giảng dạy, huấn luyện</td>
+                </tr>
+            @foreach (var quiz in item)
+            {
+                i++;
+                j++;
+                <tr>
+                    <td class="font-weight-bold mb-2">@j. @(quiz.Title)</td>
+                    <td class="mb-2 text-center">
+                            <input type="radio" name="LevelC[@(i - 1)]" value="0" required/>
+                    </td>
+                    <td class="mb-2 text-center">
+                            <input type="radio" name="LevelC[@(i - 1)]" value="1" required/>
+                    </td>
+                    <td class="mb-2 text-center">
+                            <input type="radio" name="LevelC[@(i - 1)]" value="2" required/>
+                    </td>
+                    <td class="mb-2 text-center">
+                            <input type="radio" name="LevelC[@(i - 1)]" value="3" required/>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+            }
+            else if(item.Key == QuizType.Content4) 
+            {
+                <table class="table table-bordered mb-0">
+            <tbody>
+                <tr>
+                    <td class="text-center font-weight-bold" rowspan="100" style="width: 8%">Tổ chức giảng dạy, huấn luyện.</td>
+                </tr>
+            @foreach (var quiz in item)
+            {
+                i++;
+                j++;
+                <tr>
+                    <td class="font-weight-bold mb-2">@j. @(quiz.Title)</td>
+                    <td class="mb-2 text-center">
+                            <input type="radio" name="LevelD[@(i - 1)]" value="0" required/>
+                    </td>
+                    <td class="mb-2 text-center">
+                            <input type="radio" name="LevelD[@(i - 1)]" value="1" required/>
+                    </td>
+                    <td class="mb-2 text-center">
+                            <input type="radio" name="LevelD[@(i - 1)]" value="2" required/>
+                    </td>
+                    <td class="mb-2 text-center">
+                            <input type="radio" name="LevelD[@(i - 1)]" value="3" required/>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+            }
+            else if(item.Key == QuizType.Content5) 
+            {
+                <table class="table table-bordered mb-0">
+            <tbody>
+                <tr>
+                    <td class="text-center font-weight-bold" rowspan="100" style="width: 8%">Thái độ, trách nhiệm của giảng viên.</td>
+                </tr>
+            @foreach (var quiz in item)
+            {
+                i++;
+                j++;
+                <tr>
+                    <td class="font-weight-bold mb-2">@j. @(quiz.Title)</td>
+                    <td class="mb-2 text-center">
+                            <input type="radio" name="LevelE[@(i - 1)]" value="0" required/>
+                    </td>
+                    <td class="mb-2 text-center">
+                            <input type="radio" name="LevelE[@(i - 1)]" value="1" required/>
+                    </td>
+                    <td class="mb-2 text-center">
+                            <input type="radio" name="LevelE[@(i - 1)]" value="2" required/>
+                    </td>
+                    <td class="mb-2 text-center">
+                            <input type="radio" name="LevelE[@(i - 1)]" value="3" required/>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+            }
+            
+        }
+
+<div class="mt-3 text-center">
+    <button class="btn btn-primary px-4" type="submit" @ViewBag.Disabled>Gửi</button>
+    <button class="btn btn-secondary px-4" type="reset">Hủy</button>
+</div>
+</form>
+}
+
+@section scripts {
+    <script src="/lib/icheck/icheck.min.js"></script>
+    <script>
+        $(document).ready(function(){
+          $('input').iCheck({
+            checkboxClass: 'icheckbox_flat-red',
+            radioClass: 'iradio_flat-red'
+          });
+        });
+    </script>
+}

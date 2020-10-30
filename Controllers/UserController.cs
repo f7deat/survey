@@ -44,7 +44,7 @@ namespace Survey.Controllers
 
         [HttpPost]
         public IActionResult Login(string id, string password) {
-            var user = DataExample.Users.FirstOrDefault(x => x.Id == id.ToUpper() && x.Password == password);
+            var user = DataExample.Users.FirstOrDefault(x => x.Id.ToUpper() == id.ToUpper() && x.Password == password);
             if (user != null)
             {
                 var userSession = new UserSession {
@@ -88,6 +88,10 @@ namespace Survey.Controllers
         }
 
         public IActionResult Authorized() {
+            return View();
+        }
+
+        public IActionResult Start() {
             return View();
         }
     }
