@@ -1,25 +1,36 @@
 <h3 class="font-weight-bold mb-4 text-center">Phiếu lấy ý kiến phản hồi từ người học</h3>
 
 <form action="/ticket/Take" method="get">
-<label>Mã số học viên</label>
-<div class="input-group mb-3">
-    <input type="text" class="form-control" name="userid"/>
-    <div class="input-group-append">
-        <span class="input-group-text" id="basic-addon2"><i class="fas fa-search"></i> Tìm</span>
+    <label>Mã số học viên</label>
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" name="userid" />
+        <div class="input-group-append">
+            <span class="input-group-text" id="basic-addon2"><i class="fas fa-search"></i> Tìm</span>
+        </div>
     </div>
-</div>
-<label>Họ tên</label>
-<input type="text" class="form-control mb-3" />
-<label>Đơn vị</label>
-<input type="text" class="form-control mb-3" />
-<label>Loại học phần</label>
-<select class="form-control mb-3" name="id">
-    <option>-- Chọn một --</option>
-    <option value="1">GV.LSTH - Hoàng Văn Dương</option>
-    <option value="2">GV.LSTH - Đinh Thu Hương</option>
-    <option value="3">GV.LSTH - Hoàng Bá Thiên</option>
-</select>
-<div class="text-right">
-    <button class="btn btn-primary" type="submit">Mở phiếu</button>
-</div>
+    <label>Họ tên</label>
+    <input type="text" class="form-control mb-3" />
+    <label>Đơn vị</label>
+    <input type="text" class="form-control mb-3" />
+    <label>Loại học phần</label>
+    <div class="row">
+        <div class="col-md-6">
+            <select class="form-control mb-3" name="id">
+                <option>-- Chọn một --</option>
+                <option value="1">Cách mạng dân chủ dân tộc nhân dân</option>
+                <option value="2">Cách mạng xã hội chủ nghĩa</option>
+                <option value="3">Đường lỗi quân sự</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <select class="form-control mb-3" name="id">
+                <option value="1">CNK. Bùi Bạch Đằng</option>
+                <option value="2">PCNK. Phạm Ngọc Bình</option>
+                <option value="2">GV. Ngữ Quang Thịnh</option>
+            </select>
+        </div>
+    </div>
+    <div class="text-right">
+        <button class="btn btn-primary" type="submit">Mở phiếu</button>
+    </div>
 </form>
