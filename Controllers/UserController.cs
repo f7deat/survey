@@ -16,7 +16,11 @@ namespace Survey.Controllers
 {
     public class UserController : Controller
     {
-        private List<User> Users = new List<User>();
+        SurveyDbContext _context;
+        public UserController(SurveyDbContext context)
+        {
+            _context = context;
+        }
         public IActionResult Index(UserType id)
         {
             var user = HttpContext.Session.Get<UserSession>("Survey");
@@ -35,7 +39,14 @@ namespace Survey.Controllers
             {
                 ViewData["Title"] = "Giảng viên";
             }
-            return View(DataExample.Users.Where(x => x.UserType == id).ToList());
+            return View(_context.Users.Where(x => x.UserType == id).ToList());
+        }
+
+        public IActionResult Delete(string id) {
+            var user = _context.Users.FirstOrDefault(x => x.Id == id);
+            _context.Remove(user);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Login() {
@@ -44,7 +55,7 @@ namespace Survey.Controllers
 
         [HttpPost]
         public IActionResult Login(string id, string password) {
-            var user = DataExample.Users.FirstOrDefault(x => x.Id.ToUpper() == id.ToUpper() && x.Password == password);
+            var user = _context.Users.FirstOrDefault(x => x.Id.ToUpper() == id.ToUpper() && x.Password == password);
             if (user != null)
             {
                 var userSession = new UserSession {
@@ -66,19 +77,22 @@ namespace Survey.Controllers
         }
         [HttpPost]
         public IActionResult Create(User user) {
-            DataExample.Users.Add(user);
+            user.UserType = UserType.Trainees;
+            _context.Users.Add(user);
+            _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Edit(string id) {
-            return View(DataExample.Users.FirstOrDefault(x => x.Id == id));
+            return View(_context.Users.FirstOrDefault(x => x.Id == id));
         }
 
         [HttpPost]
         public IActionResult Edit(User user) {
-            var item = DataExample.Users.FirstOrDefault(x => x.Id == user.Id);
+            var item = _context.Users.FirstOrDefault(x => x.Id == user.Id);
             item.Name = user.Name;
             item.Department = user.Department;
+            _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
 
@@ -92,7 +106,26 @@ namespace Survey.Controllers
         }
 
         public IActionResult Start() {
+            ViewBag.Department = _context.Departments.ToList();
+            ViewBag.Ticket = _context.Tickets.ToList();
             return View();
+        }
+
+        public IActionResult GetTicket(int id) {
+            var ticket = _context.Tickets.Where(x=>x.DeparmentId == id).ToList();
+            if(ticket.Count() == 0) {
+                return Ok();
+            }
+            return Ok(ticket);
+        }
+
+        [HttpPost]
+        public IActionResult GetUser(string id) {
+            if(string.IsNullOrEmpty(id)){
+                return Ok();
+            }
+            var user = _context.Users.FirstOrDefault(x => x.Id.ToLower() == id.ToLower());
+            return Ok(user);
         }
     }
 }

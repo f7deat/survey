@@ -16,6 +16,11 @@ namespace Survey.Controllers
 {
     public class VoteController : Controller
     {
+        SurveyDbContext _context;
+        public VoteController(SurveyDbContext context)
+        {
+            _context = context;
+        }
         public IActionResult Index() {
             var user = HttpContext.Session.Get<UserSession>("Survey");
             if(user == null) {
@@ -25,13 +30,12 @@ namespace Survey.Controllers
                 return RedirectToAction("authorized", "user");
             }
             ViewData["Title"] = "Kết quả đánh giá";
-            return View(DataExample.Tickets);
+            return View(_context.Tickets.ToList());
         }
 
         [HttpPost]
         public IActionResult Create(Vote vote) {
-            var user = HttpContext.Session.Get<UserSession>("Survey");
-            var isExist = DataExample.Statisticals.Any(x => x.TicketId == vote.TicketId && x.UserId == user.Id);
+            var isExist = _context.Statisticals.Any(x => x.TicketId == vote.TicketId && x.UserId == vote.UserId);
             if (isExist) {
                 return Redirect("/vote/exist");
             }
@@ -48,12 +52,12 @@ namespace Survey.Controllers
                     case 3: statistical.Vote3++; break;
                 }
             }
-            statistical.UserId = user.Id;
+            statistical.UserId = vote.UserId;
             statistical.TicketId = vote.TicketId;
             statistical.QuizType = QuizType.Content1;
             statistical.TotalQuiz = +vote.LevelA.Length;
-            statistical.Name = user.Name;
-            DataExample.Statisticals.Add(statistical);
+            statistical.DateSubmited = DateTime.Now;
+            _context.Statisticals.Add(statistical);
             // 2
             if(vote.LevelB?.Length > 0) {
                 
@@ -68,12 +72,11 @@ namespace Survey.Controllers
                         case 3: statistical2.Vote3++; break;
                     }
                 }
-                statistical2.UserId = user.Id;
+                statistical2.UserId = vote.UserId;
                 statistical2.TicketId = vote.TicketId;
                 statistical2.QuizType = QuizType.Content2;
                 statistical2.TotalQuiz = +vote.LevelB.Length;
-                statistical2.Name = user.Name;
-                DataExample.Statisticals.Add(statistical2);
+                _context.Statisticals.Add(statistical2);
             }
             // 3
             if(vote.LevelC?.Length > 0) {
@@ -88,12 +91,12 @@ namespace Survey.Controllers
                     case 3: statistical3.Vote3++; break;
                 }
             }
-            statistical3.UserId = user.Id;
+            statistical3.UserId = vote.UserId;
             statistical3.TicketId = vote.TicketId;
             statistical3.QuizType = QuizType.Content3;
             statistical3.TotalQuiz += vote.LevelC.Length;
-            statistical3.Name = user.Name;
-            DataExample.Statisticals.Add(statistical3);
+            statistical.DateSubmited = DateTime.Now;
+            _context.Statisticals.Add(statistical3);
             }
             // 4
             if(vote.LevelD?.Length > 0) {
@@ -112,12 +115,12 @@ namespace Survey.Controllers
                     case 3: statistical4.Vote3++; break;
                 }
             }
-            statistical4.UserId = user.Id;
+            statistical4.UserId = vote.UserId;
             statistical4.TicketId = vote.TicketId;
             statistical4.QuizType = QuizType.Content4;
             statistical4.TotalQuiz = +vote.LevelD.Length;
-            statistical4.Name = user.Name;
-            DataExample.Statisticals.Add(statistical4);
+            statistical.DateSubmited = DateTime.Now;
+            _context.Statisticals.Add(statistical4);
             }
             // 5
             if(vote.LevelE?.Length > 0) {
@@ -132,13 +135,14 @@ namespace Survey.Controllers
                     case 3: statistical5.Vote3++; break;
                 }
             }
-            statistical5.UserId = user.Id;
+            statistical5.UserId = vote.UserId;
             statistical5.TicketId = vote.TicketId;
             statistical5.QuizType = QuizType.Content5;
             statistical5.TotalQuiz += vote.LevelE.Length;
-            statistical5.Name = user.Name;
-            DataExample.Statisticals.Add(statistical5);
+            statistical.DateSubmited = DateTime.Now;
+            _context.Statisticals.Add(statistical5);
             }
+            _context.SaveChanges();
             return RedirectToAction(nameof(Thank));
         }
 
@@ -150,7 +154,12 @@ namespace Survey.Controllers
         }
 
         public IActionResult Details(int id) {
-            var statisticals = DataExample.Statisticals.Where(x => x.TicketId == id).ToList();
+            ViewBag.Total1 = _context.Quizzes.Count(x => x.QuizType == QuizType.Content1);
+            ViewBag.Total2 = _context.Quizzes.Count(x => x.QuizType == QuizType.Content2);
+            ViewBag.Total3 = _context.Quizzes.Count(x => x.QuizType == QuizType.Content3);
+            ViewBag.Total4 = _context.Quizzes.Count(x => x.QuizType == QuizType.Content4);
+            ViewBag.Total5 = _context.Quizzes.Count(x => x.QuizType == QuizType.Content5);
+            var statisticals = _context.Statisticals.Where(x => x.TicketId == id).ToList();
             return View(statisticals);
         }
     }

@@ -4,11 +4,10 @@ using Survey.Enums;
 
 namespace Survey.Entities
 {
-    public class Quiz
+    public class Department
     {
         public int Id { get; set; }
-        [StringLength(2000)]
-        public string Title { get; set; }
-        public QuizType QuizType { get; set; }
+        [StringLength(100)]
+        public string Name { get; set; }
     }
 }

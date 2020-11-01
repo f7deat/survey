@@ -3,30 +3,29 @@
 <form action="/ticket/Take" method="get">
     <label>Mã số học viên</label>
     <div class="input-group mb-3">
-        <input type="text" class="form-control" name="userid" />
+        <input type="text" class="form-control" name="userid" id="userid"/>
         <div class="input-group-append">
-            <span class="input-group-text" id="basic-addon2"><i class="fas fa-search"></i> Tìm</span>
+            <span class="input-group-text" style="cursor: pointer;" onclick="fillData()"><i class="fas fa-search"></i> Tìm</span>
         </div>
     </div>
     <label>Họ tên</label>
-    <input type="text" class="form-control mb-3" />
+    <input type="text" class="form-control mb-3" id="name"/>
     <label>Đơn vị</label>
-    <input type="text" class="form-control mb-3" />
+    <input type="text" class="form-control mb-3" id="department"/>
     <label>Loại học phần</label>
     <div class="row">
         <div class="col-md-6">
-            <select class="form-control mb-3" name="id">
+            <select class="form-control mb-3" id="deparmentId" onchange="selectDepartment(this)" required>
                 <option>-- Chọn một --</option>
-                <option value="1">Cách mạng dân chủ dân tộc nhân dân</option>
-                <option value="2">Cách mạng xã hội chủ nghĩa</option>
-                <option value="3">Đường lỗi quân sự</option>
+                @foreach (var item in ViewBag.Department)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
             </select>
         </div>
         <div class="col-md-6">
-            <select class="form-control mb-3" name="id">
-                <option value="1">CNK. Bùi Bạch Đằng</option>
-                <option value="2">PCNK. Phạm Ngọc Bình</option>
-                <option value="2">GV. Ngữ Quang Thịnh</option>
+            <select class="form-control mb-3" name="id" id="ticketId" required>
+                
             </select>
         </div>
     </div>
@@ -34,3 +33,51 @@
         <button class="btn btn-primary" type="submit">Mở phiếu</button>
     </div>
 </form>
+
+@section scripts {
+    <script>
+        function fillData() {
+            let userid = $('#userid').val();
+            if(!userid || userid === '') {
+                toastr['warning']('Vui lòng nhập mã học viên!')
+                return;
+            }
+            $.ajax({
+                url: '/user/getuser/' + userid,
+                type: 'POST'
+            }).done(function (response) {
+                if (response) {
+                    $('#name').val(response.name)
+                    $('#department').val(response.department)
+                } else {
+                    $('#name').val('')
+                    $('#department').val('')
+                    toastr['warning']('Không tìm thấy học viên!')
+                }
+            })
+        }
+
+        function selectDepartment(element) {
+            let departmentId = $('#deparmentId').val();
+            if(!departmentId) {
+                toastr.warning('Vui lòng chọn một học phần')
+                return;
+            }
+            $.ajax({
+                url: '/user/getticket/' + departmentId,
+                method: 'POST'
+            }).done(function (response) {
+                if(response) {
+                    let html = '';
+                    response.forEach(x => {
+                        html += `<option value="${x.id}">${x.name}<option>`
+                    })
+                    $('#ticketId').html(html);
+                } else {
+                    $('#ticketId').html('');
+                }
+            });
+
+        }
+    </script>
+}

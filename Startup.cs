@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Survey.Data;
 
 namespace Survey
 {
@@ -33,6 +35,9 @@ namespace Survey
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
+
+            services.AddDbContext<SurveyDbContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("SurveyDbContext")));
             
             services.AddControllersWithViews();
         }

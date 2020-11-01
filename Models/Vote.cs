@@ -7,7 +7,6 @@ namespace Survey.Models
 {
     public class Vote
     {
-        public List<IGrouping<QuizType, Quiz>> Quizzes { get; set; }
         public int[] LevelA { get; set; }
         public int[] LevelB { get; set; }
         public int[] LevelC { get; set; }
@@ -15,5 +14,10 @@ namespace Survey.Models
         public int[] LevelE { get; set; }
         public int TicketId { get; set; }
         public string UserId { get; set; }
+        public List<Quiz> Quizzes1 { get; set; }
+        public List<Quiz> Quizzes2 { get; set; }
+        public List<Quiz> Quizzes3 { get; set; }
+        public List<Quiz> Quizzes4 { get; set; }
+        public List<Quiz> Quizzes5 { get; set; }
     }
 }

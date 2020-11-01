@@ -17,10 +17,10 @@
             <tr>
                 <td>@item.Id</td>
                 <td>@item.Name</td>
-                <td>@item.Email</td>
+                <td>@item.Department</td>
                 <td>
-                    <button class="btn btn-info btn-sm"><i class="fas fa-pen"></i></button>
-                    <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                    <a class="btn btn-info btn-sm" href="/user/edit/@item.Id"><i class="fas fa-pen"></i></a>
+                    <a class="btn btn-danger btn-sm" href="/user/delete/@item.Id"><i class="fas fa-trash"></i></a>
                 </td>
             </tr>
         }

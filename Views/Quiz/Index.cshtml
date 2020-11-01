@@ -1,8 +1,32 @@
+@model IEnumerable<Survey.Entities.Quiz>
 @{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="mb-3">
+    <a href="/quiz/create" class="btn btn-primary">Tạo câu hỏi</a>
 </div>
+
+<table class="table table-bordered">
+    <thead class="thead-light">
+        <tr>
+            <th>#</th>
+            <th>Nội dung</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>#</td>
+                <td>@item.Title</td>
+                <td>
+                    <a href="/quiz/edit/@item.Id" class="btn btn-sm btn-info"><i class="fas fa-pen"></i></a>
+                    <a href="/quiz/delete/@item.Id" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>

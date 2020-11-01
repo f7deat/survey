@@ -1,0 +1,29 @@
+@model List<Survey.Entities.Department>
+<div class="mb-3">
+    <a href="/department/create" class="btn btn-primary">Tạo mới</a>
+</div>
+<table class="table table bordered">
+    <thead class="thead-light">
+        <tr>
+            <th>#</th>
+            <th>Tên</th>
+            <th>Tác vụ</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>
+                    <a href="/department/edit/@item.Id" class="btn btn-sm btn-info"><i class="fas fa-pen"></i></a>
+                    <a href="/department/delete/@item.Id" class="btn btn-sm btn-danger">
+                    <i class="fas fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+            
+        }
+    </tbody>
+</table>

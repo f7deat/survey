@@ -1,7 +1,8 @@
 @model Survey.Entities.Quiz
 @using Survey.Enums;
 
-<form asp-action="create" method="post">
+<form asp-action="edit" method="post">
+    <input type="hidden" asp-for="Id"/>
     <label>Nội dung</label>
     <textarea class="form-control mb-3" name="title"></textarea>
     <label>Loại</label>
@@ -12,5 +13,5 @@
         <option value="@QuizType.Content4">Tổ chức giảng dạy, huấn luyện.</option>
         <option value="@QuizType.Content5">Thái độ, trách nhiệm của giảng viên.</option>
     </select>
-    <button type="submit" class="btn btn-primary">Tạo</button>
+    <button type="submit" class="btn btn-primary">Lưu</button>
 </form>

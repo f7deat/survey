@@ -1,3 +1,4 @@
+@model Survey.Entities.User
 @{
     ViewData["Title"] = "Tạo người dùng";
 }
@@ -9,7 +10,5 @@
     <input type="text" class="form-control mb-3" name="Name" required/>
     <label>Đơn vị</label>
     <input type="text" class="form-control mb-3" name="Department" required/>
-    <label>Mật khẩu</label>
-    <input type="password" class="form-control mb-3" name="Password" required/>
     <button class="btn btn-primary" type="submit">Tạo</button>
 </form>

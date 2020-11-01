@@ -13,38 +13,47 @@ namespace Survey.Controllers
 {
     public class QuizController : Controller
     {
+        SurveyDbContext _context;
+        public QuizController(SurveyDbContext context)
+        {
+            _context = context;
+        }
         public IActionResult Index() {
-            return View();
+            return View(_context.Quizzes.ToList());
         }
 
-        public IActionResult Create(int id) {
-            ViewBag.TicketId = id;
+        public IActionResult Create() {
             return View();
         }
 
         [HttpPost]
         public IActionResult Create(Quiz quiz) {
-            quiz.Id = new Random().Next();
-            DataExample.Quizzes.Add(quiz);
-            return RedirectToAction("Details", "Ticket", new { id = quiz.TicketId });
+            _context.Quizzes.Add(quiz);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Edit(int id) {
-            var quiz = DataExample.Quizzes.FirstOrDefault(x => x.Id == id);
+            var quiz = _context.Quizzes.FirstOrDefault(x => x.Id == id);
             return View(quiz);
         }
 
         [HttpPost]
         public IActionResult Edit(Quiz quiz) {
-            return RedirectToAction("Details", "Ticket", new { id = quiz.TicketId });
+            var item = _context.Quizzes.FirstOrDefault(x => x.Id == quiz.Id);
+            item.Title = quiz.Title;
+            item.QuizType = quiz.QuizType;
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
         } 
 
         public IActionResult Delete(int id) {
-            var quiz = DataExample.Quizzes.FirstOrDefault(x => x.Id == id);
+            var quiz = _context.Quizzes.FirstOrDefault(x => x.Id == id);
             if(quiz != null) {
-                DataExample.Quizzes.Remove(quiz);
+                _context.Quizzes.Remove(quiz);
+                _context.SaveChanges();
             }
-            return RedirectToAction("Details", "Ticket", new { id = quiz.TicketId });
+            return RedirectToAction(nameof(Index));
         }
     }
 }
